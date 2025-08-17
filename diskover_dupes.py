@@ -272,7 +272,7 @@ def dupes_finder(es, q, cliargs, logger):
     else:
         batchsize = cliargs['batchsize']
     if cliargs['verbose'] or cliargs['debug']:
-        logger.info('Batch size: %s' % batchsize)
+        logger.info('Batch size: %s', batchsize)
 
     # first get all the filehashes with files that have a hardlinks count of 1
     data = {
@@ -313,12 +313,12 @@ def dupes_finder(es, q, cliargs, logger):
                     # send to rq for bots to process file hashkey list
                     q.enqueue(dupes_process_hashkey, args=(filehashlist, cliargs,), result_ttl=config['redis_ttl'])
                     if cliargs['debug'] or cliargs['verbose']:
-                        logger.info("enqueued batchsize: %s (batchsize: %s)" % (filehashlist_len, batchsize))
+                        logger.info("enqueued batchsize: %s (batchsize: %s)", filehashlist_len, batchsize)
                     del filehashlist[:]
                     if cliargs['adaptivebatch']:
                         batchsize = adaptive_batch(q, cliargs, batchsize)
                         if cliargs['debug'] or cliargs['verbose']:
-                            logger.info("batchsize set to: %s" % batchsize)
+                            logger.info("batchsize set to: %s", batchsize)
 
         # use es scroll api
         res = es.scroll(scroll_id=res['_scroll_id'], scroll='1m',
@@ -328,7 +328,7 @@ def dupes_finder(es, q, cliargs, logger):
     if len(filehashlist) > 0:
         q.enqueue(dupes_process_hashkey, args=(filehashlist, cliargs,), result_ttl=config['redis_ttl'])
 
-    logger.info('%s file hashes have been enqueued' % filehashcount)
+    logger.info('%s file hashes have been enqueued', filehashcount)
 
     if not cliargs['quiet'] and not cliargs['debug'] and not cliargs['verbose']:
         bar = progress_bar('Checking')
