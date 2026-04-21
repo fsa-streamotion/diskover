@@ -4,7 +4,7 @@ metadata:
   name: {{ template "fullname" . }}-server
   labels:
     draft: {{ default "draft-app" .Values.draft }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+{{ include "diskover.chartLabels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,6 +14,7 @@ spec:
   template:
     metadata:
       labels:
+{{ include "diskover.chartLabels" . | indent 8 }}
         draft: {{ default "draft-app" .Values.draft }}
         app: {{ template "fullname" . }}-server
 {{- if .Values.podAnnotations }}

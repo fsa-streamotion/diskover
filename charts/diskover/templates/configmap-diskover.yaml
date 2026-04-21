@@ -180,3 +180,5 @@ data:
 kind: ConfigMap
 metadata:
   name: {{ template "fullname" . }}-config
+  labels:
+{{ include "diskover.chartLabels" . | indent 4 }}
