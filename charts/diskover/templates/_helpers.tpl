@@ -31,3 +31,19 @@ Usage:
 {{ toYaml $additionalLabels | trim }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Renders the chart label and any merged additional labels for use in resource
+metadata. Always produces at least the chart label, so no with-guard is needed
+at the call site.
+
+Usage:
+  labels:
+  {{ include "diskover.chartLabels" . | indent 4 }}
+*/}}
+{{- define "diskover.chartLabels" -}}
+chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+{{- with include "diskover.additionalLabels" . }}
+{{ . }}
+{{- end }}
+{{- end -}}

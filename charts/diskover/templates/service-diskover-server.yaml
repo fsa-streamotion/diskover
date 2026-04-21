@@ -7,10 +7,7 @@ metadata:
   name: {{ template "fullname" . }}
 {{- end }}
   labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-{{- with include "diskover.additionalLabels" . }}
-{{ . | indent 4 }}
-{{- end }}
+{{ include "diskover.chartLabels" . | indent 4 }}
 {{- if .Values.service.annotations }}
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}
