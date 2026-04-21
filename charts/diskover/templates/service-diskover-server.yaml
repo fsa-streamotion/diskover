@@ -8,8 +8,8 @@ metadata:
 {{- end }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-{{- if include "diskover.additionalLabels" . }}
-{{ include "diskover.additionalLabels" . | indent 4 }}
+{{- with include "diskover.additionalLabels" . }}
+{{ . | indent 4 }}
 {{- end }}
 {{- if .Values.service.annotations }}
   annotations:

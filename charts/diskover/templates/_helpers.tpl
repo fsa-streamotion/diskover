@@ -21,17 +21,13 @@ Renders merged additional labels from .Values.global.additionalLabels and
 global.additionalLabels when the same key appears in both maps.
 
 Usage:
-  {{- if include "diskover.additionalLabels" . }}
-  {{ include "diskover.additionalLabels" . | indent <N> }}
+  {{- with include "diskover.additionalLabels" . }}
+  {{ . | indent <N> }}
   {{- end }}
 */}}
 {{- define "diskover.additionalLabels" -}}
-{{- $global := dict -}}
-{{- if and .Values.global .Values.global.additionalLabels -}}
-{{- $global = .Values.global.additionalLabels -}}
-{{- end -}}
-{{- $merged := merge (deepCopy (default dict .Values.additionalLabels)) $global -}}
-{{- if $merged -}}
-{{ toYaml $merged | trim }}
+{{- $additionalLabels := merge (deepCopy (default dict .Values.additionalLabels)) (default dict .Values.global.additionalLabels) -}}
+{{- if $additionalLabels -}}
+{{ toYaml $additionalLabels | trim }}
 {{- end -}}
 {{- end -}}
