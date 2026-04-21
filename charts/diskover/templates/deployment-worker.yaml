@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-{{ include "diskover.chartLabels" . | indent 4 }}
+{{ include "diskover.chartLabels" . | indent 8 }}
         draft: {{ default "draft-app" .Values.draft }}
         app: {{ template "fullname" . }}
 {{- if .Values.podAnnotations }}
