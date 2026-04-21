@@ -16,9 +16,6 @@ spec:
       labels:
         draft: {{ default "draft-app" .Values.draft }}
         app: {{ template "fullname" . }}-server
-{{- with include "diskover.additionalLabels" . }}
-{{ . | indent 8 }}
-{{- end }}
 {{- if .Values.podAnnotations }}
       annotations:
 {{ toYaml .Values.podAnnotations | indent 8 }}
