@@ -180,3 +180,8 @@ data:
 kind: ConfigMap
 metadata:
   name: {{ template "fullname" . }}-config
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+{{- if include "diskover.additionalLabels" . }}
+{{ include "diskover.additionalLabels" . | indent 4 }}
+{{- end }}

@@ -63,3 +63,31 @@ resources:
 probePath: /actuator/health
 nodeSelector: []
 tolerations: {}
+
+# Additional labels to apply to all Kubernetes resources in this chart.
+# Chart-level additionalLabels take precedence over global.additionalLabels
+# when the same key appears in both maps.
+#
+# Example – chart-level only:
+#   additionalLabels:
+#     environment: production
+#     team: platform
+#
+# Example – global only (set at the release level, e.g. in a parent chart):
+#   global:
+#     additionalLabels:
+#       environment: production
+#
+# Example – both (chart-level "team" overrides the global value):
+#   global:
+#     additionalLabels:
+#       environment: production
+#       team: ops
+#   additionalLabels:
+#     team: platform   # overrides global team: ops
+additionalLabels: {}
+
+# Global values shared across charts in a Helm release.
+# global.additionalLabels are merged into all resources but can be overridden
+# by the chart-level additionalLabels above.
+global: {}
